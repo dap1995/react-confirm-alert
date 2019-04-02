@@ -3,6 +3,10 @@ import PropTypes from 'prop-types'
 import { render, unmountComponentAtNode } from 'react-dom'
 
 export default class ReactConfirmAlert extends Component {
+  static defaultProps = {
+    alertType: '',
+  }
+
   static propTypes = {
     title: PropTypes.string,
     message: PropTypes.string,
@@ -13,7 +17,8 @@ export default class ReactConfirmAlert extends Component {
     closeOnEscape: PropTypes.bool,
     willUnmount: PropTypes.func,
     onClickOutside: PropTypes.func,
-    onKeypressEscape: PropTypes.func
+    onKeypressEscape: PropTypes.func,
+    alertType: PropTypes.string,
   }
 
   static defaultProps = {
@@ -87,11 +92,18 @@ export default class ReactConfirmAlert extends Component {
   }
 
   render () {
-    const { title, message, buttons, childrenElement, customUI } = this.props
+    const {
+      title,
+      message,
+      buttons,
+      childrenElement,
+      customUI,
+      alertType = '',
+    } = this.props
 
     return (
       <div
-        className='react-confirm-alert-overlay'
+        className={`react-confirm-alert-overlay ${alertType}`}
         ref={dom => (this.overlay = dom)}
         onClick={this.handleClickOverlay}
       >
